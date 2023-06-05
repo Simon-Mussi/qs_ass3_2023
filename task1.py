@@ -114,4 +114,6 @@ if __name__ == '__main__':
                 for sequence_str, outputs in differences.items():
                     print(f"For sequence: {sequence_str}")
                     print(f"Model {i} output:")
-                    print(outputs)
+                    print(outputs[0])
+                    print(f"Model {j} output:")
+                    print(outputs[1])
