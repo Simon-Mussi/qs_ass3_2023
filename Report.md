@@ -1,6 +1,11 @@
 ## QS Assignment 3: Group XY
 
 ## Theoretical Questions
+# Question 1:
+
+# Question 2:
+
+# Question 3:
 
 ## Practical Notes
 
