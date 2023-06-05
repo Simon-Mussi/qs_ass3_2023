@@ -32,6 +32,22 @@ Use the same comparison method as in scenario (a) to compare M1 to the hypothesi
 If M1 and M2' do not match, use the counterexample to refine M2' and repeat the comparison. The L* algorithm is a classic example of an algorithm that infers a finite automaton from a given system using this methodology. 
 
 However, this approach does not guarantee to find all the states and transitions of M2, especially if it has a large number of states, a large input alphabet, or complex behavior. Further, it cannot definitively prove conformance, only provide evidence supporting it.
+
+#### Answer to (c):
+If the structure of M2 is not known but the maximum number of states is known, and you can interact with it, this can help to make the conformance testing more feasible, although it remains undecidable in the formal sense due to the reasons previously mentioned. Similar to scenario (b), you can use active learning or automata learning methods to infer a model of M2. However, knowing the maximum number of states can guide and limit the exploration of M2. 
+Here is a general approach: 
+##### 1. Interact with M2: 
+Start interacting with M2 by providing inputs and recording outputs. Generate a variety of sequences of inputs to cover as many possible states as possible. Since you know the maximum number of states, this can limit the number of possible sequences you need to try. 
+##### 2. Build a Hypothesis Model: 
+As you interact with M2 and gather more information, you construct a hypothesis model M2'. You continue refining this model as you interact with M2 more and get new information. 
+##### 3. Compare M1 to M2': 
+Once you have your hypothesis model, you compare it with M1, just like in scenarios (a) and (b). If they match, M1 may conform to M2. 
+##### 4. Refine the Model: 
+If they don't match, use the counterexample to refine your hypothesis model and repeat the process. 
+
+Knowing the maximum number of states can significantly improve the efficiency of the model inference and comparison process, but it still doesn't guarantee perfect results. It can, however, reduce the possibility of infinite exploration, which can happen when the structure of M2 is unknown and there's no known limit to the number of states. 
+
+Lastly, similar to the previous scenarios, conformance can't be definitively proven but only supported by empirical evidence.
 ### Question 2:
 
 ### Question 3:
