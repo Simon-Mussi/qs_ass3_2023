@@ -50,12 +50,18 @@ Knowing the maximum number of states can significantly improve the efficiency of
 Lastly, similar to the previous scenarios, conformance can't be definitively proven but only supported by empirical evidence.
 ### Question 2:
 In the context of learning automata or models (for instance, with the L* algorithm), an equivalence oracle is a hypothetical tool or mechanism that can definitively answer whether a hypothesized model is equivalent to the true (unknown) model. The oracle, if it exists, is assumed to be able to provide a counterexample if the two models are not equivalent.
+
 In practical situations, a true equivalence oracle does not usually exist, and we have to approximate its role with testing, which can only provide evidence of equivalence but not definitive proof.
+
 The reason an equivalence oracle might find, in theory, infinitely many counterexamples is due to the way the learning process is designed and the nature of the language or automaton being learned.
+
 For the task at hand, functions like "is_balanced" and "funny_counter" likely have behaviors dependent on specific conditions or sequences of inputs. When an incorrect hypothesis model is proposed, the equivalence oracle provides a counterexample which shows a difference between the hypothesized model and the true model. This counterexample is used to refine the hypothesis.
+
 However, since there can be an infinite number of input sequences (depending on the specification of "is_balanced" and "funny_counter"), there are potentially an infinite number of counterexamples that could be found. Each counterexample represents a different sequence of inputs leading to different behavior between the hypothesis and the true model.
+
 In practical terms, a method to provide some guarantee that the learned model is correct might involve an iterative process of learning and testing. The basic L* algorithm can be used to learn an initial model, then testing is used to find any discrepancies between the learned model and the actual behavior of the "is_balanced" and "funny_counter" functions. If discrepancies are found (i.e., counterexamples), these are fed back into the learning algorithm to refine the model. This process is repeated until no more discrepancies can be found within the constraints of your testing capacity.
-Please note that this process does not guarantee absolute correctness of the learned model. It only provides evidence that the model is correct within the limits of the testing that has been performed. Full verification of the model's correctness would require exhaustive testing, which is generally not feasible for complex models or large input spaces.
+
+Note that this process does not guarantee absolute correctness of the learned model. It only provides evidence that the model is correct within the limits of the testing that has been performed. Full verification of the model's correctness would require exhaustive testing, which is generally not feasible for complex models or large input spaces.
 
 ### Question 3:
 Learning-based testing is a strategy that relies on machine learning to identify and predict potential bugs.
