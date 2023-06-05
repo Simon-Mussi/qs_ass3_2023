@@ -8,7 +8,7 @@
 ### Question 3:
 Learning-based testing is a strategy that relies on machine learning to identify and predict potential bugs.
 Therefore it has a few problems finding bugs in the following categories:
-####- Non-deterministic bugs:
+#### - Non-deterministic bugs:
 
 ## Practical Notes
 
