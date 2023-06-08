@@ -86,11 +86,19 @@ may not find bugs, as it does not know that this does not belong to the general 
 
 ### Task 1
 
-#### Correct Vending Machine: xy
-Briefly describe its behaviour.
+#### Correct Vending Machine: 3
+Based on the analysis of the inputs and outputs, the behavior of Model 3 can be summarized as follows:
+
+- When a coin is added, it consistently outputs "coin_added".
+- When a product is selected, such as "coke", "water", or "peanuts", it outputs the corresponding product name.
+- When the coin return is requested, it outputs "coin_returned".
+- In some cases, if the selected product is not available or the input is invalid, it returns "No_Action".
+- It correctly handles multiple inputs in sequence and provides appropriate outputs based on the given inputs.
+Overall, Model 3 demonstrates a more comprehensive understanding of the vending machine's behavior compared to the other models. It consistently provides outputs that align with the expected actions and choices in a typical vending machine scenario.
 
 #### For each faulty vending machine, describe the fault
-
+Model 0 and Model 1 always output "coin_added" for all inputs, which are incorrect. They do not provide any specific product selection or coin return behavior.
+Model 2 has some inconsistencies in its outputs. For example, it sometimes returns "No_Action" instead of the expected product or coin return actions. It also fails to handle the "peanuts" selection correctly, as it returns "No_Action" instead of the expected "Peanuts" output.
 ### Task 3
 
 #### Describe the bugs for each implementation. Add a shortest test-case that reproduces the bug 

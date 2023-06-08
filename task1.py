@@ -77,7 +77,7 @@ if __name__ == '__main__':
         cnt += 1
 
     # TODO 2. Write a function that performs learning-based testing to find the differences between them (if any)
-    def compare_models(model1, model2, input_alphabet, num_tests=1000):
+    def compare_models(model1, model2, input_alphabet, num_tests=100):
         differences = []
         for _ in range(num_tests):
             inputs = choices(input_alphabet, k=randint(8, 8))
@@ -87,17 +87,20 @@ if __name__ == '__main__':
                 differences.append((inputs, outputs1, outputs2))
         return differences
     # Compare all pairs of models
-    for i in range(len(learned_models)):
-        for j in range(i + 1, len(learned_models)):
-            differences = compare_models(learned_models[i], learned_models[j], input_alphabet)
-            print(f"Differences between model {i} and model {j}:")
-            for inputs, outputs1, outputs2 in differences:
-                print(f"Inputs: ")
-                print(f"{inputs}")
-                print(f"Outputs for model {i}:")
-                print(f"{outputs1}")
-                print(f"Outputs for model {j}:")
-                print(f"{outputs2}")
+    with open("model_differences.txt", "w") as file:
+        for i in range(0, len(learned_models)):
+            for j in range(i + 1, len(learned_models)):
+                differences = compare_models(learned_models[i], learned_models[j], input_alphabet)
+                file.write("-------------------------------------------------------------------------\n")
+                file.write(f"Differences between model {i} and model {j}:\n")
+                for inputs, outputs1, outputs2 in differences:
+                    file.write("Inputs:\n")
+                    file.write(f"{inputs}\n")
+                    file.write(f"Outputs for model {i}:\n")
+                    file.write(f"{outputs1}\n")
+                    file.write(f"Outputs for model {j}:\n")
+                    file.write(f"{outputs2}\n")
+
 
     # TODOs
     # TODO 1. Learn models of Vending Machines
