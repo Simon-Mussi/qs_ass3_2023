@@ -1,6 +1,6 @@
 import dill as pickle
 from abc import ABC, abstractmethod
-
+import random
 
 # interface that all loaded implementations implement
 class AbstractVendingMachine(ABC):
