@@ -1,4 +1,4 @@
-## QS Assignment 3: Group XY
+## QS Assignment 3: Group 52
 
 ## Theoretical Questions
 ### Question 1:
