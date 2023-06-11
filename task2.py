@@ -1,4 +1,14 @@
 from random import choices, randint
+from aalpy.SULs import MealySUL
+from aalpy.learning_algs import run_Lstar
+from aalpy.utils import generate_random_deterministic_automata
+from aalpy.oracles import KWayTransitionCoverageEqOracle
+from aalpy.oracles import WMethodEqOracle
+from aalpy.oracles import RandomWordEqOracle, RandomWMethodEqOracle
+from aalpy.base import SUL
+from aalpy.automata import MealyMachine
+import re
+
 
 
 def is_balanced(x):
@@ -40,7 +50,8 @@ def verify_correctness(learned_model, function_under_test):
             print(f'SUL output        : {sul_output}')
             print(f'Learned Model     : {learned_model_output}')
 
-            assert is_balanced(test_case) == learned_model.execute_sequence(learned_model.initial_state, test_case)
+            assert(False)
+            #assert is_balanced(test_case) == learned_model.execute_sequence(learned_model.initial_state, test_case)
     print('All random test cases conform to a model')
 
 
@@ -49,10 +60,64 @@ input_alphabet = ['(', ')']
 
 # TODO learn a model that passes the verify_correctness check for both functions
 
-learned_model_funny_counter = None
+class RegexSUL(SUL):
+    def __init__(self, input: str):
+        super().__init__()
+        self.input = input
+        self.list = []
+
+    def pre(self):
+        self.list = []
+        pass
+
+    def post(self):
+
+        pass
+
+    def step(self, letter):
+        if(letter is not None):
+            self.list.append(letter)
+        return is_balanced(self.list)
+
+model = RegexSUL(input_alphabet)
+
+#eq_oracle = KWayTransitionCoverageEqOracle(input_alphabet, model, k = 11, optimize='queries')
+eq_oracle = WMethodEqOracle(input_alphabet, model, 22)
+
+learned_model_is_balanced = run_Lstar(input_alphabet, model, eq_oracle, automaton_type='dfa', print_level=3)
+verify_correctness(learned_model_is_balanced, 'is_balanced')
+
+
+
+class RegexSUL(SUL):
+    def __init__(self, input: str):
+        super().__init__()
+        self.input = input
+        self.list = []
+
+    def pre(self):
+        self.list = []
+        pass
+
+    def post(self):
+
+        pass
+
+    def step(self, letter):
+        if(letter is not None):
+            self.list.append(letter)
+        return funny_counter(self.list)
+
+model = RegexSUL(input_alphabet)
+
+eq_oracle = KWayTransitionCoverageEqOracle(input_alphabet, model, 6)
+
+learned_model_funny_counter = run_Lstar(input_alphabet, model, eq_oracle, automaton_type='dfa', print_level=3)
 verify_correctness(learned_model_funny_counter, 'funny_counter')
 
 # TODO try to minimize a number of membership queries used for learning of is_balanced
-learned_model_is_balanced = None
-verify_correctness(learned_model_is_balanced, 'is_balanced')
 
+#eq_oracle = KWayTransitionCoverageEqOracle(input_alphabet, model, k = 11, optimize='queries')
+
+#learned_model_is_balanced = run_Lstar(input_alphabet, model, eq_oracle, automaton_type='dfa', print_level=2)
+#verify_correctness(learned_model_is_balanced, 'is_balanced')
