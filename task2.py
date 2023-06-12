@@ -8,8 +8,10 @@ from aalpy.oracles import RandomWordEqOracle, RandomWMethodEqOracle
 from aalpy.base import SUL
 from aalpy.automata import MealyMachine
 import re
+from random import seed
 
 
+seed(1)
 
 def is_balanced(x):
     len_x = len(x)
@@ -79,12 +81,12 @@ class RegexSUL(SUL):
             self.list.append(letter)
         return is_balanced(self.list)
 
-model = RegexSUL(input_alphabet)
+model0 = RegexSUL(input_alphabet)
 
 #eq_oracle = KWayTransitionCoverageEqOracle(input_alphabet, model, k = 11, optimize='queries')
-eq_oracle = WMethodEqOracle(input_alphabet, model, 22)
+eq_oracle = WMethodEqOracle(input_alphabet, model0, 22)
 
-learned_model_is_balanced = run_Lstar(input_alphabet, model, eq_oracle, automaton_type='dfa', print_level=3)
+learned_model_is_balanced = run_Lstar(input_alphabet, model0, eq_oracle, automaton_type='dfa', print_level=3)
 verify_correctness(learned_model_is_balanced, 'is_balanced')
 
 
@@ -108,16 +110,18 @@ class RegexSUL(SUL):
             self.list.append(letter)
         return funny_counter(self.list)
 
-model = RegexSUL(input_alphabet)
+model1 = RegexSUL(input_alphabet)
 
-eq_oracle = KWayTransitionCoverageEqOracle(input_alphabet, model, 6)
+eq_oracle = KWayTransitionCoverageEqOracle(input_alphabet, model1, 6)
 
-learned_model_funny_counter = run_Lstar(input_alphabet, model, eq_oracle, automaton_type='dfa', print_level=3)
+learned_model_funny_counter = run_Lstar(input_alphabet, model1, eq_oracle, automaton_type='dfa', print_level=3)
 verify_correctness(learned_model_funny_counter, 'funny_counter')
 
 # TODO try to minimize a number of membership queries used for learning of is_balanced
 
-#eq_oracle = KWayTransitionCoverageEqOracle(input_alphabet, model, k = 11, optimize='queries')
+eq_oracle = KWayTransitionCoverageEqOracle(input_alphabet, model0, k=9, num_generate_paths=1000,
+                                            max_number_of_steps=9, method="prefix",
+                                            max_path_len=9, optimize="queries")
 
-#learned_model_is_balanced = run_Lstar(input_alphabet, model, eq_oracle, automaton_type='dfa', print_level=2)
-#verify_correctness(learned_model_is_balanced, 'is_balanced')
+learned_model_is_balanced = run_Lstar(input_alphabet, model0, eq_oracle, automaton_type='dfa', print_level=2)
+verify_correctness(learned_model_is_balanced, 'is_balanced')
