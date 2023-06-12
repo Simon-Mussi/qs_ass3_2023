@@ -134,15 +134,15 @@ class PyClassSUL(SUL):
 model1 = PyClassSUL(correct_message_bord)
 model2 = PyClassSUL(message_board_1)
 
-func1 = FunctionDecorator(MessageBoardInterface.publish_message(), {'client1', 'testmessage'})
-func2 = FunctionDecorator(MessageBoardInterface.like_message(), list('client2', 'client1', 'testmessage'))
-func3 = FunctionDecorator(MessageBoardInterface.dislike_message(), list('client2', 'client1', 'testmessage'))
+func1 = FunctionDecorator(MessageBoardInterface.publish_message, {'client1', 'testmessage'})
+func2 = FunctionDecorator(MessageBoardInterface.like_message, {'client2', 'client1', 'testmessage'})
+func3 = FunctionDecorator(MessageBoardInterface.dislike_message, {'client2', 'client1', 'testmessage'})
 
 input_alphabet = [func1, func2, func3]
 
 eq_oracle = RandomWalkEqOracle(input_alphabet, model1,num_steps = 5000,reset_after_cex=True)
 
-learned_model = run_Lstar(input_alphabet, model1, eq_oracle, automaton_type='mealy')
+learned_model = run_Lstar(input_alphabet, model1, eq_oracle, automaton_type='mfa')
 
 # at this point, model is learned
 # to do the Learning-based testing, we simply use the model as a hypothesis for other systems/implementations
